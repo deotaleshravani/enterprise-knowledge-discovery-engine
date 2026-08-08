@@ -1,0 +1,52 @@
+venv/
+__pycache__/
+*.pyc
+db.sqlite3
+.env
+media/
+
+# Logs
+logs/
+*.log
+
+# FAISS index
+vector_store.index
+
+# HuggingFace cache
+.cache/
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+
+*.index
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Django
+db.sqlite3
+
+# Environment
+.env
+.env.*
+
+# Logs
+*.log
+logs/
+
+# FAISS indexes
+*.index
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
