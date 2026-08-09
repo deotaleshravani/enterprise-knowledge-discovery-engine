@@ -1,31 +1,62 @@
+import logging
+
+logger = logging.getLogger(__name__)
+
+
 def format_pdf(document):
     """
     Formats PDF documents into
-    structured text.
+    structured enterprise-friendly text.
     """
 
     metadata = document.metadata
 
+    document_id = metadata.get(
+        "id",
+        document.id
+    )
+
+    source_folder = metadata.get(
+        "source_folder",
+        "Unknown"
+    )
+
+    content = metadata.get(
+        "text",
+        document.text
+    )
+
     parts = []
 
     parts.append(
-        f"Document ID: {document.id}"
+        "==================== PDF DOCUMENTATION ===================="
     )
 
     parts.append(
-        f"Title: {metadata.get('title', 'Unknown')}"
+        f"Document ID: {document_id}"
     )
 
     parts.append(
-        f"Category: {metadata.get('category', 'Unknown')}"
+        "Document Type: PDF"
     )
 
     parts.append(
-        f"Author: {metadata.get('author', 'Unknown')}"
+        f"Source Category: {source_folder}"
     )
 
     parts.append(
-        f"Content:\n{document.text}"
+        f"Content:\n{content}"
     )
 
-    return "\n".join(parts)
+    parts.append(
+        "============================================================"
+    )
+
+    formatted = "\n\n".join(parts)
+
+    logger.info(
+        "Formatted PDF document %s",
+        document.id
+    )
+
+    return formatted

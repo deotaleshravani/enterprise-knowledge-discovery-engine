@@ -5,10 +5,6 @@ from search.formatter.pdf_formatter import format_pdf
 
 
 def format_document(document):
-    """
-    Routes a document to the correct formatter
-    based on its source.
-    """
 
     source = document.source.lower()
 
