@@ -4,7 +4,7 @@ __pycache__/
 db.sqlite3
 .env
 media/
-
+backend/logs/*.log
 # Logs
 logs/
 *.log
