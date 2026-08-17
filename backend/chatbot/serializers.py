@@ -1,5 +1,8 @@
 from rest_framework import serializers
+<<<<<<< HEAD
 from chatbot.models import ChatSession, ChatMessage
+=======
+>>>>>>> 295313f9544a55975afdff91c3cab55d8a5a635a
 
 
 class ChatRequestSerializer(serializers.Serializer):
@@ -32,6 +35,7 @@ class ChatResponseSerializer(serializers.Serializer):
     session_id = serializers.UUIDField(
         required=False,
         allow_null=True
+<<<<<<< HEAD
     )
 
 
@@ -78,3 +82,6 @@ class ChatSessionSerializer(serializers.ModelSerializer):
             "created_at",
             "updated_at",
         ]
+=======
+    )
+>>>>>>> 295313f9544a55975afdff91c3cab55d8a5a635a

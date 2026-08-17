@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from search.knowledge_graph.graph_builder import graph
 
 
@@ -43,3 +44,13 @@ def graph_search(query):
             expanded.update(str(neighbor) for neighbor in graph.neighbors(node_name))
 
     return sorted(expanded)
+=======
+from search.knowledge_graph.graph_expander import (
+    expand_query,
+)
+
+
+def graph_search(query):
+
+    return expand_query(query)
+>>>>>>> 295313f9544a55975afdff91c3cab55d8a5a635a

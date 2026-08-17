@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.http import JsonResponse
@@ -71,3 +72,8 @@ def role_required_view(request):
         "role": profile.role,
         "username": request.user.username,
     })
+=======
+from django.shortcuts import render
+
+# Create your views here.
+>>>>>>> 295313f9544a55975afdff91c3cab55d8a5a635a

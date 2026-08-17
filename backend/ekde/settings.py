@@ -43,7 +43,10 @@ INSTALLED_APPS = [
     'chatbot',
     'users',
     'rest_framework',
+<<<<<<< HEAD
     'rest_framework.authtoken',
+=======
+>>>>>>> 295313f9544a55975afdff91c3cab55d8a5a635a
     "admin_api",
 ]
 
@@ -123,6 +126,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+<<<<<<< HEAD
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -139,3 +143,5 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:5173',
 ]
 
+=======
+>>>>>>> 295313f9544a55975afdff91c3cab55d8a5a635a

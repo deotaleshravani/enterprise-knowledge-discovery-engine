@@ -128,8 +128,13 @@ def hybrid_retrieve(
     if graph_results:
 
         for item in graph_results:
+<<<<<<< HEAD
             entity_name = item.get("entity", item) if isinstance(item, dict) else item
             query += " " + str(entity_name)
+=======
+
+            query += " " + item["entity"]
+>>>>>>> 295313f9544a55975afdff91c3cab55d8a5a635a
 
     logger.info(
         "Detected intent: %s",

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import csv
 import io
 
@@ -6,10 +7,17 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from search.explanation import explain_search_results
+=======
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+
+>>>>>>> 295313f9544a55975afdff91c3cab55d8a5a635a
 from search.knowledge_graph.graph_builder import (
     build_graph,
     graph,
 )
+<<<<<<< HEAD
 from search.knowledge_graph.graph_search import graph_search
 from search.knowledge_graph.graph_serializer import (
     serialize_graph,
@@ -69,6 +77,17 @@ class ExportAPIView(APIView):
 
         return Response({"error": "Unsupported export format."}, status=400)
 
+=======
+
+from search.knowledge_graph.graph_serializer import (
+    serialize_graph,
+)
+
+
+from search.knowledge_graph.graph_builder import (
+    build_graph,
+)
+>>>>>>> 295313f9544a55975afdff91c3cab55d8a5a635a
 
 class GraphAPIView(APIView):
 
@@ -80,14 +99,29 @@ class GraphAPIView(APIView):
             serialize_graph()
         )
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 295313f9544a55975afdff91c3cab55d8a5a635a
 class GraphStatsAPIView(APIView):
 
     def get(self, request):
 
+<<<<<<< HEAD
         build_graph()
 
         return Response({
             "total_nodes": graph.number_of_nodes(),
             "total_edges": graph.number_of_edges(),
+=======
+        # Rebuild graph from documents
+        build_graph()
+
+        return Response({
+
+            "total_nodes": graph.number_of_nodes(),
+
+            "total_edges": graph.number_of_edges(),
+
+>>>>>>> 295313f9544a55975afdff91c3cab55d8a5a635a
         })

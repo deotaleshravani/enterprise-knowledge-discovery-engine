@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -32,3 +33,8 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return f"{self.user.username} ({self.role})"
+=======
+from django.db import models
+
+# Create your models here.
+>>>>>>> 295313f9544a55975afdff91c3cab55d8a5a635a

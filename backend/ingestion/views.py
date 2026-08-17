@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import json
 
 from django.http import JsonResponse
@@ -71,3 +72,11 @@ def upload_documents(request):
         return JsonResponse({"error": "No records supplied"}, status=400)
 
     return ingest_data(request)
+=======
+from django.http import JsonResponse
+from ingestion.pipeline.ingest_pipeline import run_ingestion
+
+def ingest_data(request):
+    count = run_ingestion()
+    return JsonResponse({"message": "Ingestion complete", "documents": count})
+>>>>>>> 295313f9544a55975afdff91c3cab55d8a5a635a

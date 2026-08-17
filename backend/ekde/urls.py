@@ -28,10 +28,14 @@ urlpatterns = [
         "api/admin/",
         include("admin_api.urls"),
     ),
+<<<<<<< HEAD
     path(
         "api/",
         include("users.urls"),
     ),
+=======
+
+>>>>>>> 295313f9544a55975afdff91c3cab55d8a5a635a
     path(
         "api/",
         include("search.urls"),
