@@ -1,0 +1,292 @@
+EKDE
+	backend
+		admin_api
+			__pycache__
+			migrations
+				__pycache__
+			__init__.py
+			admin.py
+			apps.py
+			models.py
+			serializers.py
+			tests.py
+			urls.py
+			views.py
+		chatbot
+			__pycache__
+			analytics
+				__init__.py
+				metrics.py
+			llm
+				__pycache__
+				__init__.py
+				ollama_client.py
+			memory
+				__pycache__
+				__init__.py
+				conversation_memory.py
+			migration
+				__init__.py
+				0001_initial.py
+			prompts
+				__pycache__
+				prompt_builder.py
+				prompt_template.py
+			query
+				__pycache__
+				__init__.py
+				query_rewriter.py
+			services
+				__pycache__
+				__init__.py
+				conversation_service.py
+				session_service.py
+			session_memory
+				__pycache__
+				__init__.py
+				session_manager.py
+			tests
+				__pycache__
+				__init__.py
+				test_converation_service.py
+				test_ollama_client.py
+				test_rag_pipeline.py
+				test_views.py
+			utils
+				__pycache__
+				__init__.py
+				confidence.py
+			verification
+				__pycache__
+				__init__.py
+				hallucination_guard.py
+				
+			__init__.py
+			admin.py
+			apps.py
+			models.py
+			tests.py
+			views.py
+			chat_pipeline.py
+			rag_pipeline.py
+			serializers.py
+			urls.py
+			
+		documents
+			_pycache__
+			migration
+				__init__.py
+				0001_initial.py
+				0002_remove_document_id_default.py
+			tests
+				__init__.py
+
+			__init__.py
+			admin.py
+			apps.py
+			models.py
+			tests.py
+			views.py
+		ekde
+			_pycache__
+			__init__.py
+			asgi.py
+			settings.py
+			urls.py
+			wsgi.py
+			logging_config.py
+
+		ingestion
+			migration
+				__init__.py
+			pipeline
+				ingest_pipeline.py
+			services
+				jira.py
+				meeting.py
+				normalizer.py
+				pdf.py
+				slack.py
+			tests
+				__pycache__
+				__init__.py
+				test_normalizer.py
+				test_pipeline.py
+
+			utils
+				__pycache__
+				text_cleaner.py
+	
+			__init__.py
+			admin.py
+			apps.py
+			models.py
+			tests.py
+			urls.py
+			views.py
+
+		logs
+			ekde.log
+	
+		search
+			__pycache__
+			chunking
+				__pycache__
+				__init__.py
+				chunk_pipeline.py
+				document_formatter.py
+				text_chunker.py
+			citations
+				__init__.py
+				citation_builder.py
+			context
+				__pycache__
+				context_builder.py
+			conversation
+				__pycache__
+				__init__.py
+				query_builder.py
+			embeddings
+				__pycache__
+				__init__.py
+				embedding_generator.py
+				embedding_pipeline.py
+			filters
+				__pycache__
+				__init__.py
+				metadata_filter.py
+
+			formatter
+				
+				__pycache__
+				__init__.py
+				formatter.py
+				jira_formatter.py
+				meeting_formatter.py
+				pdf_formatter.py
+				slack_formatter.py
+			intent
+				
+				__pycache__
+				__init__.py
+				detector.py
+
+			knowledge_graph
+				
+				__pycache__
+				__init__.py
+				graph_builder.py
+				graph_query.py
+				graph_serializer.py
+	
+			migrations
+				
+				__pycache__
+				__init__.py
+				0001_initial.py
+			
+			optimizer
+				
+				__pycache__
+				__init__.py
+				context_optimizers.py
+			
+			query_expansion
+				
+				__pycache__
+				__init__.py
+				query_expander.py
+
+			ranking
+				
+				__pycache__
+				__init__.py
+				ranking_rules.py
+
+			retrieval
+				__pycache__
+				__init__.py
+				bm25_retriever.py
+				hybrid_retriever.py
+				reranker.py
+				retriever.py
+
+			source_detection
+				
+				__pycache__
+				__init__.py
+				detector.py
+
+			tests
+				__pycache__
+				integration
+					__pycache__
+					__init__.py
+					test_context_builder_integration.py
+					test_retriever_integration.py
+					test_search_pipeline.py
+				__init__.py
+				test_chunk_pipeline.py
+				test_chunker.py
+				test_context_builder.py
+				test_embedding_generator.py
+				test_embedding_pipeline.py
+				test_faiss_store.py
+				test_reranker.py
+				test_retriever.py
+
+			vectorstore
+				__pycache__
+				__init__.py
+				faiss_store.py
+
+			__init__.py
+			admin.py
+			apps.py
+			models.py
+			tests.py
+			views.py
+
+
+		users
+			__pycache__
+			migration
+				__pycache__
+				__init__.py
+			__init__.py
+			admin.py
+			apps.py
+			models.py
+			tests.py
+			views.py
+		db.sqlite3
+		manage.py
+		None
+		urls.py
+	datasets
+		jira
+			jira_tickets.json
+		meetings
+			meeting_notes.json
+		pdfs
+			api_docs all the pdfs
+			architecture all the pdfs
+			incidents all the pdfs
+			runbooks all the pdfs
+			security all the pdfs	 
+		slack
+			slack_messages.json
+
+	docs
+		architecture.md
+		database_design.md
+		project_plan.md
+	scripts
+		company_data.py
+		generate_jira.py
+		generate_meetings.py
+		generate_pdfs.py
+		generate_slack.py
+	venv
+	gitignore
+	requirement.txt

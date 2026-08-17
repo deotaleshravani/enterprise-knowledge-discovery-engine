@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  backend:
+    build:
+      context: .
+    container_name: ekde-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONPATH=/app/backend
+    command: python manage.py runserver 0.0.0.0:8000
+    working_dir: /app/backend
+    volumes:
+      - ./backend:/app/backend
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ekde-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
+volumes:
+  ollama_data:

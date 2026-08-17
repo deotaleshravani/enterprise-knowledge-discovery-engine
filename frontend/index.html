@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EKDE</title>
+    <style>
+      body { font-family: Arial, sans-serif; background: #0f172a; color: #e2e8f0; margin: 0; }
+      .container { max-width: 1200px; margin: 0 auto; padding: 32px 20px; }
+      nav { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+      button { background: #2563eb; color: white; border: none; border-radius: 8px; padding: 10px 14px; cursor: pointer; }
+      .card { background: #111827; border: 1px solid #334155; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+      input, select, textarea { width: 100%; box-sizing: border-box; padding: 10px 12px; border-radius: 8px; border: 1px solid #475569; background: #020817; color: white; margin-top: 8px; }
+      .muted { color: #94a3b8; }
+      .danger { background: #b91c1c; }
+      .success { background: #15803d; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <nav>
+        <button onclick="showSection('login')">Login</button>
+        <button onclick="showSection('dashboard')">Dashboard</button>
+        <button onclick="showSection('search')">Search</button>
+        <button onclick="showSection('chat')">Chat</button>
+        <button onclick="showSection('graph')">Graph</button>
+        <button onclick="showSection('analytics')">Analytics</button>
+        <button onclick="showSection('admin')">Admin</button>
+      </nav>
+
+      <section id="login" class="card">
+        <h2>Login</h2>
+        <input id="username" placeholder="Username" />
+        <input id="password" type="password" placeholder="Password" />
+        <div style="margin-top:12px; display:flex; gap:12px;">
+          <button onclick="loginUser()">Login</button>
+          <button class="success" onclick="useDemoUser()">Use demo admin</button>
+        </div>
+        <p id="loginResult" class="muted"></p>
+      </section>
+
+      <section id="dashboard" class="card" style="display:none;">
+        <h2>Dashboard</h2>
+        <div class="grid" id="dashboardGrid"></div>
+      </section>
+
+      <section id="search" class="card" style="display:none;">
+        <h2>Search</h2>
+        <input id="searchQuery" placeholder="Search query" />
+        <div style="margin-top:12px;"><button onclick="doSearch()">Run search</button></div>
+        <pre id="searchResult" class="muted"></pre>
+      </section>
+
+      <section id="chat" class="card" style="display:none;">
+        <h2>Chat</h2>
+        <textarea id="chatQuestion" rows="4" placeholder="Ask a question..."></textarea>
+        <div style="margin-top:12px;"><button onclick="doChat()">Ask</button></div>
+        <pre id="chatResult" class="muted"></pre>
+      </section>
+
+      <section id="graph" class="card" style="display:none;">
+        <h2>Graph</h2>
+        <input id="graphQuery" placeholder="Who worked with Neha?" />
+        <div style="margin-top:12px;"><button onclick="doGraphSearch()">Search graph</button></div>
+        <pre id="graphResult" class="muted"></pre>
+      </section>
+
+      <section id="analytics" class="card" style="display:none;">
+        <h2>Analytics</h2>
+        <button onclick="loadAnalytics()">Load analytics</button>
+        <pre id="analyticsResult" class="muted"></pre>
+      </section>
+
+      <section id="admin" class="card" style="display:none;">
+        <h2>Admin panel</h2>
+        <select id="uploadSource">
+          <option value="jira">Jira</option>
+          <option value="slack">Slack</option>
+          <option value="pdf">PDF</option>
+          <option value="meeting">Meeting</option>
+        </select>
+        <textarea id="uploadPayload" rows="8" placeholder='[{"id":"T-1001","title":"Example ticket","description":"PostgreSQL issue"}]'></textarea>
+        <div style="margin-top:12px; display:flex; gap:12px;">
+          <button class="success" onclick="uploadData()">Upload & re-index</button>
+          <button class="danger" onclick="testAdminAccess()">Check RBAC</button>
+        </div>
+        <pre id="adminResult" class="muted"></pre>
+      </section>
+    </div>
+
+    <script>
+      const API = 'http://127.0.0.1:8000/api';
+      let token = localStorage.getItem('ekde_token') || '';
+
+      function setResult(id, value) {
+        document.getElementById(id).textContent = JSON.stringify(value, null, 2);
+      }
+
+      function showSection(id) {
+        document.querySelectorAll('section').forEach(section => {
+          section.style.display = section.id === id ? 'block' : 'none';
+        });
+      }
+
+      function authHeaders() {
+        return {
+          'Content-Type': 'application/json',
+          'Authorization': token ? `Token ${token}` : ''
+        };
+      }
+
+      async function loginUser() {
+        const username = document.getElementById('username').value || 'admin';
+        const password = document.getElementById('password').value || 'admin123';
+        const res = await fetch(`${API}/auth/login/`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        const data = await res.json();
+        if (data.token) {
+          token = data.token;
+          localStorage.setItem('ekde_token', token);
+          document.getElementById('loginResult').textContent = `Logged in as ${data.username} (${data.role})`;
+        } else {
+          document.getElementById('loginResult').textContent = JSON.stringify(data, null, 2);
+        }
+      }
+
+      function useDemoUser() {
+        document.getElementById('username').value = 'admin';
+        document.getElementById('password').value = 'admin123';
+        loginUser();
+      }
+
+      async function getDashboard() {
+        try {
+          const res = await fetch(`${API}/admin/dashboard/`, { headers: authHeaders() });
+          const data = await res.json();
+          const cards = [
+            ['Documents', data.documents || 0],
+            ['Chunks', data.chunks || 0],
+            ['Sessions', data.chat_sessions || 0],
+            ['Messages', data.chat_messages || 0],
+            ['Graph Nodes', data.graph_nodes || 0],
+            ['Graph Edges', data.graph_edges || 0]
+          ];
+          const html = cards.map(([label, value]) => `<div class="card"><h3>${label}</h3><p style="font-size:2rem;margin:0;">${value}</p></div>`).join('');
+          document.getElementById('dashboardGrid').innerHTML = html;
+        } catch (error) {
+          setResult('dashboardGrid', { error: String(error) });
+        }
+      }
+
+      async function doSearch() {
+        const q = document.getElementById('searchQuery').value;
+        const res = await fetch(`${API}/search/explain/?q=${encodeURIComponent(q)}`, { headers: authHeaders() });
+        const data = await res.json();
+        setResult('searchResult', data);
+      }
+
+      async function doChat() {
+        const question = document.getElementById('chatQuestion').value;
+        const res = await fetch(`${API}/chat/`, {
+          method: 'POST',
+          headers: authHeaders(),
+          body: JSON.stringify({ question })
+        });
+        const data = await res.json();
+        setResult('chatResult', data);
+      }
+
+      async function doGraphSearch() {
+        const q = document.getElementById('graphQuery').value;
+        const res = await fetch(`${API}/graph/search/?q=${encodeURIComponent(q)}`, { headers: authHeaders() });
+        const data = await res.json();
+        setResult('graphResult', data);
+      }
+
+      async function loadAnalytics() {
+        const res = await fetch(`${API}/admin/analytics/`, { headers: authHeaders() });
+        const data = await res.json();
+        setResult('analyticsResult', data);
+      }
+
+      async function uploadData() {
+        const source = document.getElementById('uploadSource').value;
+        const payloadText = document.getElementById('uploadPayload').value;
+        const payload = JSON.parse(payloadText || '[]');
+        const res = await fetch(`${API}/ingestion/upload/`, {
+          method: 'POST',
+          headers: authHeaders(),
+          body: JSON.stringify({ source, records: payload })
+        });
+        const data = await res.json();
+        setResult('adminResult', data);
+        getDashboard();
+      }
+
+      async function testAdminAccess() {
+        const res = await fetch(`${API}/auth/demo/`, { headers: authHeaders() });
+        const data = await res.json();
+        setResult('adminResult', data);
+      }
+
+      showSection('login');
+      getDashboard();
+    </script>
+  </body>
+</html>
