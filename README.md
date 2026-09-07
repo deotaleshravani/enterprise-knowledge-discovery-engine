@@ -100,37 +100,6 @@ python manage.py runserver 0.0.0.0:8000
 - GET /api/admin/sessions/
 - GET /api/admin/graph/
 
-## What is completed in this repo
-
-### Completed
-
-- Dependency repair for Python 3.11
-- Django startup validation
-- Search explanation API
-- Graph search API
-- Export API
-- Better prompt structure
-- Dashboard analytics endpoints
-- Full project documentation set
-- Docker deployment scaffolding
-
-### Not fully completed
-
-- Full React frontend
-- Authentication and RBAC
-- Admin upload pipeline
-- Production deployment to cloud
-- Large-scale testing and integration coverage
-
-## Roadmap status
-
-This project is in a strong backend-ready state, but the full enterprise product stack still needs additional work for:
-
-- user login and role-based access control
-- document upload automation
-- frontend dashboard and chat UI
-- production deployment and observability
-
 ## Deployment notes
 
 The project includes Docker examples for local containerized runs.
